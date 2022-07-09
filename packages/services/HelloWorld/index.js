@@ -4,7 +4,7 @@ async function index(args) {
         hello: "Hello world"
     }
 
-    console.log({type: "test log", body})
+    console.log({type: "test log", body: JSON.stringify(body)})
 
     return {
         headers: { 'content-type': 'application/json' },
