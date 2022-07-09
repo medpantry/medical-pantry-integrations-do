@@ -1,9 +1,0 @@
-{
-  "name": "medical-pantry-integrations-do",
-  "version": "1.0.0",
-  "description": "The application contains all the integration functions deployed in digital ocean for intergration services for medical pantry",
-  "main": "index.js",
-  "repository": "https://github.com/medpantry/medical-pantry-integrations-do.git",
-  "author": "Saad Ahmad <saad.ahmad@servian.com>",
-  "license": "MIT"
-}
