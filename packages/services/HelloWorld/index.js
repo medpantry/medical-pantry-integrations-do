@@ -1,7 +1,12 @@
 async function index(args) {
-    return {
+    const body = {
         args,
         hello: "Hello world"
+    }
+
+    return {
+        headers: { 'content-type': 'text/json; charset=UTF-8' },
+        body
     }
 }
 
