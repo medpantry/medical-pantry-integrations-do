@@ -4,6 +4,8 @@ async function index(args) {
         hello: "Hello world"
     }
 
+    console.log({type: "test log", body})
+
     return {
         headers: { 'content-type': 'application/json' },
         body
