@@ -5,7 +5,7 @@ async function index(args) {
     }
 
     return {
-        headers: { 'content-type': 'text/json; charset=UTF-8' },
+        headers: { 'content-type': 'application/json' },
         body
     }
 }
