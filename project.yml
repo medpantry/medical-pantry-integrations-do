@@ -1,5 +1,5 @@
 packages:
-  - name: HelloWorld
+  - name: services
     actions:
-      - name: index
+      - name: HelloWorld
         runtime: nodejs:default
