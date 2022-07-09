@@ -2,3 +2,4 @@ packages:
   - name: HelloWorld
     actions:
       - name: index
+        runtime: nodejs:default
