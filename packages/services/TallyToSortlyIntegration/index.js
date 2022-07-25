@@ -27,19 +27,23 @@ async function index(args) {
         const photos = Object.assign([], ...dataList.filter(item => item.label === PHOTOS_LABEL).map(item => item.value))
             .map(item => ({url: item.url}))
 
-        const getValueFromDataList = (dataList, label) => getDefaultOnEmpty(
+        const getValueFromDataList = (dataList, label, _default = "no value") => getDefaultOnEmpty(
             getDefaultOnEmpty(dataList.filter(item => item.label === label)[0], {}).value,
-            'no value'
+            _default
         )
 
         const sortlyNotes = [
             `Total number of boxes: ${getValueFromDataList(dataList, "Total number of boxes")}`,
             `Total number of bags: ${getValueFromDataList(dataList, "Total number of bags")}`,
             `Any miscellaneous or big items (please list): ${getValueFromDataList(dataList, "Any miscellaneous or big items (please list)")}`,
+            `Name: ${getValueFromDataList(dataList, "Your name")}`,
+            `Organisation: ${getValueFromDataList(dataList, "Your organisation")}`,
+            `Phone number: ${getValueFromDataList(dataList, 'Your phone number')}`,
+            `Email: ${getValueFromDataList(dataList, "Your email")}`,
         ].join("\n")
 
         await createSortlyEntry(
-            moment(data.createdAt || "").format("YYYYMMDD_hh:mm:ss") || "Entry",
+            `${getValueFromDataList(dataList, "Your organisation", "No organisation given")}@${moment(data.createdAt || "").format("YYYYMMDD_hh:mm:ss")}` || "Entry",
             sortlyNotes,
             photos
         )
