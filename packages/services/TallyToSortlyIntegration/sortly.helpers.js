@@ -13,7 +13,8 @@ const createSortlyEntry = async (itemName, notes, photos) => {
         name: itemName,
         type: 'item',
         photos,
-        notes
+        notes,
+        parent_id: parseInt(process.env.SORTLY_TALLY_FORM_DUMP_FOLDER_ID),
     }
 
     const axiosConfig = {

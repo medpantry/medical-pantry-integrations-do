@@ -5,6 +5,7 @@ const PHOTOS_LABEL = "photos"
 
 async function index(args) {
     try {
+        await createSortlyEntry("Somethign", "Notes", [])
         const data = helpers.getDefaultOnEmpty(args.data)
         if (!data || !data.fields) {
             return helpers.makeSuccessResponse({

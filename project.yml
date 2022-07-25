@@ -3,3 +3,7 @@ packages:
     actions:
       - name: TallyToSortlyIntegration
         runtime: nodejs:default
+environment:
+  SORTLY_PUBLIC_KEY: ${SORTLY_PUBLIC_KEY}
+  SORTLY_PRIVATE_KEY: ${SORTLY_PRIVATE_KEY}
+  SORTLY_TALLY_FORM_DUMP_FOLDER_ID: ${SORTLY_TALLY_FORM_DUMP_FOLDER_ID}
