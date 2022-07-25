@@ -1,5 +1,7 @@
 const helpers = require('./helpers')
 const axios = require('axios')
+const {createSortlyEntry} = require("./sortly.helpers");
+const PHOTOS_LABEL = "photos"
 
 async function index(args) {
     try {
@@ -15,18 +17,27 @@ async function index(args) {
                 const label = helpers.getDefaultOnEmpty(item.label)
                 if (!label && item.type !== "FILE_UPLOAD") return undefined
                 return {
-                    label: label || "File",
+                    label: label || PHOTOS_LABEL,
                     value: helpers.getDefaultOnEmpty(item.value, 'no value')
                 }
             })
             .filter(item => Boolean(item))
 
-        console.log({dataList, data: JSON.stringify(data)})
+        const photos = Object.assign([], ...dataList.filter(item => item.label === PHOTOS_LABEL).map(item => item.value))
+            .map(item => ({url: item.url}))
+
+
+        console.log({dataList, data: JSON.stringify(data), photos})
+
+        await createSortlyEntry(
+            data.createdAt || "Entry",
+            JSON.stringify(dataList.filter(item => item !== PHOTOS_LABEL), null, 2),
+            photos
+        )
 
         return helpers.makeErrorResponse({
             message: "Success"
         })
-
     }
     catch (e) {
         console.error(e)
