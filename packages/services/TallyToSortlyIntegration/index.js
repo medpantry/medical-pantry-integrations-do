@@ -28,7 +28,17 @@ async function index(args) {
 
         await createSortlyEntry(
             moment(data.createdAt || "").format("YYYYMMDD") || "Entry",
-            JSON.stringify(dataList.filter(item => item.label !== PHOTOS_LABEL), null, 2),
+            JSON.stringify(
+                Object.assign({},
+                    ...dataList
+                        .filter(item => [
+                            "Total number of boxes",
+                            "Total number of bags",
+                            "Any miscellaneous or big items (please list)"
+                        ].includes(item.label))
+                        .map(item => ({[item.label] : item.value}))
+                    )
+                , null, 2),
             photos
         )
 
