@@ -31,12 +31,13 @@ async function index(args) {
             getDefaultOnEmpty(dataList.filter(item => item.label === label)[0], {}).value,
             'no value'
         )
-        const sortlyNotes = `
-            Total number of boxes: ${getValueFromDataList(dataList, "Total number of boxes")},
-            Total number of bags: ${getValueFromDataList(dataList, "Total number of boxes")},
-            Any miscellaneous or big items (please list): ${getValueFromDataList(dataList, "Any miscellaneous or big items (please list)")},
-        `
 
+        const sortlyNotes = [
+            `Total number of boxes: ${getValueFromDataList(dataList, "Total number of boxes")}`,
+            `Total number of bags: ${getValueFromDataList(dataList, "Total number of bags")}`,
+            `Any miscellaneous or big items (please list): ${getValueFromDataList(dataList, "Any miscellaneous or big items (please list)")}`,
+        ].join("\n")
+        
         await createSortlyEntry(
             moment(data.createdAt || "").format("YYYYMMDD") || "Entry",
             sortlyNotes,
