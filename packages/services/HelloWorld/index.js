@@ -16,9 +16,9 @@ async function index(args) {
         const dataList = data.fields
             .map(item => {
                 const label = helpers.getDefaultOnEmpty(item.label)
-                if (!label) return undefined
+                if (!label && item.type !== "FILE_UPLOAD") return undefined
                 return {
-                    label,
+                    label: label || "File",
                     value: helpers.getDefaultOnEmpty(item.value, 'no value')
                 }
             })
