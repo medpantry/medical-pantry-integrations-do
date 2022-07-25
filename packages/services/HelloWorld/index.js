@@ -31,7 +31,8 @@ async function index(args) {
             status: 200,
             body: {
                 message: "Success",
-                dataList
+                dataList,
+                args,
             }
         }
 
