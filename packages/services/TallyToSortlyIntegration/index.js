@@ -1,5 +1,6 @@
 const helpers = require('./helpers')
 const {createSortlyEntry} = require("./sortly.helpers");
+const moment = require('moment')
 const PHOTOS_LABEL = "photos"
 
 async function index(args) {
@@ -24,9 +25,9 @@ async function index(args) {
 
         const photos = Object.assign([], ...dataList.filter(item => item.label === PHOTOS_LABEL).map(item => item.value))
             .map(item => ({url: item.url}))
-        
+
         await createSortlyEntry(
-            data.createdAt || "Entry",
+            moment(data.createdAt || "").format("YYYYMMDD") || "Entry",
             JSON.stringify(dataList.filter(item => item !== PHOTOS_LABEL), null, 2),
             photos
         )
