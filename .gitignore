@@ -2,3 +2,5 @@
 .idea/
 
 packages/services/HelloWorld/node_modules/
+
+.env

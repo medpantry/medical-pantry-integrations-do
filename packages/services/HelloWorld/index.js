@@ -1,16 +1,24 @@
 const helpers = require('./helpers')
+let http = undefined
+try {
+    https = require('node:https');
+} catch (err) {
+    console.warning('https support is disabled!');
+}
 
 async function index(args) {
     try {
+        if (!http) {
+            return helpers.makeErrorResponse({
+                message: "Cannot make requests to sortly. Http disabled. Aborting service."
+            })
+        }
+
         const data = helpers.getDefaultOnEmpty(args.data)
         if (!data || !data.fields) {
-            return {
-                headers: helpers.getCommonHeaders(),
-                status: 200,
-                body: {
-                    message: "No data argument found"
-                }
-            }
+            return helpers.makeSuccessResponse({
+                message: "No data or data.field arguments found"
+            })
         }
 
         const dataList = data.fields
@@ -26,26 +34,16 @@ async function index(args) {
 
         console.log({dataList, data: JSON.stringify(data)})
 
-        return {
-            headers: helpers.getCommonHeaders(),
-            status: 200,
-            body: {
-                message: "Success",
-                dataList,
-                args,
-            }
-        }
+        return helpers.makeErrorResponse({
+            message: "Success"
+        })
 
     }
     catch (e) {
         console.error(e)
-        return {
-            headers: helpers.getCommonHeaders(),
-            status: 400,
-            body: {
-                error: e.message
-            }
-        }
+        return helpers.makeErrorResponse({
+            message: e.message
+        })
     }
 }
 
