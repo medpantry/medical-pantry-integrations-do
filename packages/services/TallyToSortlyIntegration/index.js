@@ -1,19 +1,8 @@
 const helpers = require('./helpers')
-let http = undefined
-try {
-    https = require('node:https');
-} catch (err) {
-    console.warning('https support is disabled!');
-}
+const axios = require('axios')
 
 async function index(args) {
     try {
-        if (!http) {
-            return helpers.makeErrorResponse({
-                message: "Cannot make requests to sortly. Http disabled. Aborting service."
-            })
-        }
-
         const data = helpers.getDefaultOnEmpty(args.data)
         if (!data || !data.fields) {
             return helpers.makeSuccessResponse({

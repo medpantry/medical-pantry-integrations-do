@@ -1,6 +1,6 @@
 
 .idea/
 
-packages/services/HelloWorld/node_modules/
+packages/services/TallyToSortlyIntegration/node_modules/
 
 .env

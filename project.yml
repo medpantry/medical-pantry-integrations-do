@@ -1,5 +1,5 @@
 packages:
   - name: services
     actions:
-      - name: HelloWorld
+      - name: TallyToSortlyIntegration
         runtime: nodejs:default
