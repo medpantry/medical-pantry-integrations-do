@@ -37,9 +37,9 @@ async function index(args) {
             `Total number of bags: ${getValueFromDataList(dataList, "Total number of bags")}`,
             `Any miscellaneous or big items (please list): ${getValueFromDataList(dataList, "Any miscellaneous or big items (please list)")}`,
         ].join("\n")
-        
+
         await createSortlyEntry(
-            moment(data.createdAt || "").format("YYYYMMDD") || "Entry",
+            moment(data.createdAt || "").format("YYYYMMDD_hh:mm:ss") || "Entry",
             sortlyNotes,
             photos
         )
