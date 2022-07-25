@@ -28,7 +28,7 @@ async function index(args) {
 
         await createSortlyEntry(
             moment(data.createdAt || "").format("YYYYMMDD") || "Entry",
-            JSON.stringify(dataList.filter(item => item !== PHOTOS_LABEL), null, 2),
+            JSON.stringify(dataList.filter(item => item.label !== PHOTOS_LABEL), null, 2),
             photos
         )
 
