@@ -24,7 +24,7 @@ async function index(args) {
             })
             .filter(item => Boolean(item))
 
-        console.log({dataList, data})
+        console.log({dataList, data: JSON.stringify(data)})
 
         return {
             headers: helpers.getCommonHeaders(),
