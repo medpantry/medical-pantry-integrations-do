@@ -3,7 +3,7 @@ const helpers = require('./helpers')
 async function index(args) {
     try {
         const data = helpers.getDefaultOnEmpty(args.data)
-        if (!data) {
+        if (!data || !data.fields) {
             return {
                 headers: helpers.getCommonHeaders(),
                 status: 200,
@@ -13,7 +13,7 @@ async function index(args) {
             }
         }
 
-        const dataList = data
+        const dataList = data.fields
             .map(item => {
                 const label = helpers.getDefaultOnEmpty(item.label)
                 if (!label) return undefined
