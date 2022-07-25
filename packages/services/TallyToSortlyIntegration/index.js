@@ -1,6 +1,7 @@
 const helpers = require('./helpers')
 const {createSortlyEntry} = require("./sortly.helpers");
 const moment = require('moment')
+const {getDefaultOnEmpty} = require("./helpers");
 const PHOTOS_LABEL = "photos"
 
 async function index(args) {
@@ -26,23 +27,23 @@ async function index(args) {
         const photos = Object.assign([], ...dataList.filter(item => item.label === PHOTOS_LABEL).map(item => item.value))
             .map(item => ({url: item.url}))
 
+        const getValueFromDataList = (dataList, label) => getDefaultOnEmpty(
+            getDefaultOnEmpty(dataList.filter(item => item.label === label)[0], {}).value,
+            'no value'
+        )
+        const sortlyNotes = `
+            Total number of boxes: ${getValueFromDataList(dataList, "Total number of boxes")},
+            Total number of bags: ${getValueFromDataList(dataList, "Total number of boxes")},
+            Any miscellaneous or big items (please list): ${getValueFromDataList(dataList, "Any miscellaneous or big items (please list)")},
+        `
+
         await createSortlyEntry(
             moment(data.createdAt || "").format("YYYYMMDD") || "Entry",
-            JSON.stringify(
-                Object.assign({},
-                    ...dataList
-                        .filter(item => [
-                            "Total number of boxes",
-                            "Total number of bags",
-                            "Any miscellaneous or big items (please list)"
-                        ].includes(item.label))
-                        .map(item => ({[item.label] : item.value}))
-                    )
-                , null, 2),
+            sortlyNotes,
             photos
         )
 
-        console.log({dataList, data: JSON.stringify(data), photos})
+        console.log({dataList, sortlyNotes, photos})
         return helpers.makeErrorResponse({
             message: "Success"
         })
